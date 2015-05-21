@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>表单验证</title>
+<style>
+body{
+	background-color:#999;
+}
+body p input{
+	margin:0;
+	padding:0;
+}
+form{
+	font-size:14px;
+	width:700px;
+	height:200px;
+	margin:150px auto;
+	padding:20px 0 0 10px;
+	border:1px solid #999;
+	background-color:#FFF;
+}
+.aa{
+	height:25px;
+	line-height:25px;
+}
+span{
+	font-size:16px;
+	width:100px;
+	height:25px;
+	float:left;
+	/*display:inline-block;*/
+	text-align:right;
+}
+label{
+	display:inline-block;
+	margin-right:10px;
+	float:left;
+	/*margin-top:13px;*/
+/*	border:1px solid #9F0;*/
+}
+p.message{
+	color:#ccc;
+	display:none;
+/*	border:1px solid #CC0;*/
+}
+b{
+	color:#F00;
+	visibility:hidden;
+}
+em{
+	width:50px;
+	height:15px;
+	line-height:15px;
+	text-align:center;
+	float:left;
+	display:block;
+	background:#CCC;
+	border:1px solid #FFF;
+}
+#active{
+	background-color:#EBA469;
+}
+</style>
+<script type="text/javascript">
+function getLength(str){
+	return str.replace(/[^\x00-xff]/g,"xx").length;
+}
+window.onload=function(){
+/*	var p=document.getElementsByTagName("p");
+	var em=document.getElementsByTagName("em");
+	var input=document.getElementsByTagName("input");
+	//用户名
+	//1.数字、字母a-2A-Z（部分大小写）、汉字、下划线
+	//2.5-25字符，推荐使用后中文会员名
+	//\w能组成单词的字符包括下划线和数字
+	var name=input[0];
+	var pwd=input[1];
+	var pwd2=input[2];
+	var name_p=p[0];
+	var pwd_p=p[1];
+	var pwd2_p=p[2];
+	var count=document.getElementById("count");
+	var str="";
+	var namelength=0;
+	var pwdlength=0;
+	var pwd_str="";
+	name.onfocus=function(){
+		str=name.value;
+		namelength=nameLength(str);
+		name_p.style.display="block";
+		count.style.visibility="visible";
+		count.innerHTML=namelength+"个字符";
+	}
+	name.onkeyup=function(){
+		str=name.value;
+		namelength=nameLength(str);
+		count.innerHTML=namelength+"个字符";
+	}
+	name.onblur=function(){
+		var re = /[^\w]/g;
+		if(namelength<5||namelength>25){
+			name_p.innerHTML="只能输入5-25个字符！";
+			pwd.setAttribute("disabled","");
+		}else if(re.test(str)){
+			name_p.innerHTML="只能输入中文、数字、字母、下划线！";
+			pwd.setAttribute("disabled","");
+		}else{
+			name_p.innerHTML="OK!";
+			pwd.removeAttribute("disabled");
+		}
+	}
+	pwd.onfocus=function(){
+		pwd_p.style.display="block";
+	}
+	pwd.onkeyup=function(){
+		pwd_str=pwd.value;
+		pwd2.removeAttribute("disabled");
+		if(5<pwd_str.length&&pwd_str.length<=7){
+			em[1].style.backgroundColor="#E1761E";
+			pwd2_p.style.display="block";
+		}
+		else if(7<pwd_str.length&&pwd_str.length<=20){
+			em[2].style.backgroundColor="#AE5B17";
+			pwd2_p.style.display="block";
+		}
+	}
+	pwd.onblur=function(){
+		pwd_str=pwd.value;
+		var re1=/[^\d]/g;
+		var re2=/[^a-zA-Z]/g;
+		if(pwd_str.length<5||pwd_str.length>20){
+			pwd_p.innerHTML="只能是5-25位字符或数字！";
+			pwd2.setAttribute("disabled","");
+		}else if(!re1.test(pwd_str)){
+			pwd_p.innerHTML="不能全是数字！";
+			pwd2.setAttribute("disabled","");
+		}else if(!re2.test(pwd_str)){
+			pwd_p.innerHTML="不能全是字母！";
+			pwd2.setAttribute("disabled","");
+		}else{
+			pwd_p.innerHTML="OK!";
+		}
+	}
+	pwd2.onblur=function(){
+		if(pwd.value!=pwd2.value){
+			pwd2_p.innerHTML="两次输入不一致！";
+		}
+	}
+	function nameLength(str){
+		return str.replace("/[^\x00-\xff]/g","XX").length;
+	}*/
+var aP=document.getElementsByTagName("p");
+var aInput=document.getElementsByTagName("input");
+var aEm=document.getElementsByTagName("em");
+var oname=aInput[0];
+var pwd=aInput[1];
+var pwd2=aInput[2];
+var name_msg=aP[0];
+var pwd_msg=aP[1];
+var pwd2_msg=aP[2];
+var count=document.getElementById("count");
+var name_length=0;
+var re=/^\w\u4e00-\u9fa5/g;
+oname.onfocus=function(){
+	name_msg.style.dispaly="block";
+	name_msg.innerHTML="2-25个字符，一个汉字为2个字符，建议使用中文名";
+
+}
+oname.onkeyup=function(){
+	count.style.visibility="visible";
+	name_length=getLength(this.value);
+	count.innerHTML=name_length+"个字符";
+	if(name_length==0){
+		count.style.visibility="hidden";
+	}
+}
+}
+</script>
+</head>
+
+<body>
+
+<form action="#" method="post">
+<div class="aa"><label><span>用户名：</span><input type="text" name="username" /></label><p class="message"><i class="info"></i>只能输入5-20个字符，一个汉字代表两个字符，推荐使用中文名</p></div>
+<div class="aa"><label><span></span><b id="count">0个字符</b></label></div>
+<div class="aa"><label><span>密码：</span><input type="text" name="password" disabled="disabled" /></label><p class="message"><i class="erro"></i>5-20个字符</p></div>
+<div class="aa"><label><span></span><em id="active">弱</em><em>中</em><em>强</em></label></div>
+<div class="aa"><label><span>确认密码：</span><input type="text" name="password" disabled="disabled" /></label><p class="message"><i class="info"></i>请重新输入一次</p></div>
+</form>
+
+</body>
+</html>
